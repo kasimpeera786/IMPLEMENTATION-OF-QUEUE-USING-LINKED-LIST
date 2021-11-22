@@ -1,0 +1,75 @@
+  #include <stdio.h>
+  #include <stdlib.h>
+  struct node{
+                  int data;
+    struct node *link;
+};
+
+      void add(struct node **f,struct node **r,int num)
+               {struct node *temp;
+                 temp=(struct node*)malloc(sizeof(struct node));
+                 temp->data=num;
+                temp->link=NULL;
+                if(*f==NULL)
+                  {*f=temp;
+                    *r=temp;
+                  }
+                 else{
+                           (*r)->link=temp;
+                           *r=temp;
+                           }
+       }
+                     void display(struct node *q)
+                       {
+                                printf("\nthe elements in the queue are:\n");
+                                            while(q!=NULL)
+                                                      {printf(" %d   ",q->data);
+                                                               q=q->link;
+                                                       }
+                        }
+  
+                         int delete(struct node **f)
+                           {
+                                          int item;
+                                           struct node *temp;
+                                           temp=*f;
+                                          item=temp->data;
+                                        *f=temp->link;
+         			free(temp);
+                                       return item;
+                              }
+
+    int main()
+{
+                      struct node *front,*rare;
+                         front=rare=NULL;
+                        int n,i,num,d,item;
+                       printf("how many elements do you want to enter:\n");
+                       scanf("%d",&n);
+  for(i=1;i<=n;i++)
+     			  {printf("\nenter element %d:",i);
+   scanf("%d",&num);
+   add(&front,&rare,num);
+  }
+  
+  display(front);
+ 
+ printf("\nhow many elements do you want to delete:");
+ scanf("%d",&d); 
+ 
+ if(d<=n){
+    				 for(i=1;i<=d;i++)
+    					 {item=delete(&front);
+     					    printf("%d is deleted:\n",item);
+  					   }
+   }
+  				 else
+  				 {printf("\n %d elements are not present in queue:",d);
+  				 }
+   
+   printf("after deleting ");
+ 				  display(front);
+  
+  
+    return 0;
+}
